@@ -4,9 +4,9 @@
  */
 package Vista;
 
-import Modelo.GestorClientesMem;
-import Modelo.IGestorClientes;
-import Modelo.ServicioClientes;
+import Modelo.Clientes.GestorClientesMem;
+import Modelo.Clientes.IGestorClientes;
+import Modelo.Clientes.ServicioClientes;
 import javax.swing.JFrame;
 
 /**
