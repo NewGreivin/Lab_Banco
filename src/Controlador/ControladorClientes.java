@@ -5,7 +5,7 @@
 package Controlador;
 
 import Modelo.Clientes.ServicioClientes;
-import Vista.IVista;
+import Vista.Clientes.IVista;
 
 /**
  *

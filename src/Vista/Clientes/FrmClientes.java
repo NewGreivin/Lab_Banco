@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Vista;
+package Vista.Clientes;
 
 import Controlador.ControladorClientes;
 import Modelo.Clientes.Cliente;
 import Modelo.Clientes.ServicioClientes;
-import Vista.IVista;
+import Vista.Clientes.IVista;
+import Vista.UtilGui;
 import Vista.UtilGui;
 
 /**
@@ -253,7 +254,7 @@ public class FrmClientes extends javax.swing.JInternalFrame implements IVista<Cl
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
