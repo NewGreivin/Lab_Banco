@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Vista.Clientes.FrmClientes;
 import Modelo.Clientes.GestorClientesMem;
 import Modelo.Clientes.IGestorClientes;
 import Modelo.Clientes.ServicioClientes;
