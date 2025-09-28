@@ -4,8 +4,6 @@
  */
 package Modelo;
 
-import Modelo.Cliente;
-import Modelo.IGestorClientes;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -22,22 +20,23 @@ public class ServicioClientes {
         this.gestor = gestor;
     }
     
-    public void guardar(String id, String nombre, String correo, String telefono) {
+    public void guardar(String id, String nombre, String correo, String telefono, boolean preferencia) {
         validarRequeridos(id, nombre, correo, telefono);
         if (gestor.existe(id)) throw new IllegalArgumentException("Ya existe un registro con id=" + id);
         if (!EMAIL.matcher(correo).matches()) throw new IllegalArgumentException("Formato de correo inválido");
-        gestor.guardar(new Cliente(id, nombre, correo, telefono));
+        gestor.guardar(new Cliente(id, nombre, correo, telefono,preferencia));
     }
     
-    public void actualizar(String id, String correo, String telefono) {
+    public void actualizar(String id, String correo, String telefono,boolean preferencia) {
         Objects.requireNonNull(ultimoRegistro(), "No se ha cargado ningun registro");
         validarRequeridos(id, correo, telefono);
-        if(!hayCambios(id, correo, telefono)) return;
+        if(!hayCambios(id, correo, telefono,preferencia)) return;
         if (!gestor.existe(id)) throw new IllegalArgumentException("No existe un registro con id=" + id);
         if (!EMAIL.matcher(correo).matches()) throw new IllegalArgumentException("Formato de correo inválido");
         Cliente cliente=gestor.buscar(id);
         cliente.setCorreo(correo);
         cliente.setTelefono(telefono);
+        cliente.setPreferencia(preferencia);
         gestor.actualizar(cliente);
     }
     
@@ -74,10 +73,15 @@ public class ServicioClientes {
         }
     }
     
-    private boolean hayCambios(String id,String correo,String telefono){
+    private boolean hayCambios(String id,String correo,String telefono,boolean preferencia){
         Cliente cliente = gestor.buscar(id);
         Objects.requireNonNull(cliente, "No se ha cargado ningun registro");
         validarRequeridos(correo,telefono);
-        return !(cliente.getCorreo().equals(correo) && cliente.getTelefono().equals(telefono));
+        return !(cliente.getCorreo().equals(correo) && cliente.getTelefono().equals(telefono) &&
+             cliente.isPreferencia() == preferencia);
+    }
+    
+    public List<Cliente> getHistoricoEliminados() {
+        return gestor.getHistoricoEliminados();
     }
 }
