@@ -5,8 +5,8 @@
 package Vista;
 
 import Controlador.ControladorClientes;
-import Modelo.Cliente;
-import Modelo.ServicioClientes;
+import Modelo.Clientes.Cliente;
+import Modelo.Clientes.ServicioClientes;
 import Vista.IVista;
 import Vista.UtilGui;
 
