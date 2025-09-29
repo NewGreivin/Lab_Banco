@@ -8,6 +8,11 @@ import Vista.Clientes.FrmClientes;
 import Modelo.Clientes.GestorClientesMem;
 import Modelo.Clientes.IGestorClientes;
 import Modelo.Clientes.ServicioClientes;
+import Modelo.Cuentas.GestorCuentasMem;
+import Modelo.Cuentas.IGestorCuentas;
+import Modelo.Cuentas.ServicioCuentas;
+import Vista.Cuentas.FrmCuentas;
+import Vista.Cuentas.FrmMovimientos;
 import javax.swing.JFrame;
 
 /**
@@ -17,13 +22,20 @@ import javax.swing.JFrame;
 public class FrmMain extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMain.class.getName());
-
+    private ServicioClientes servicioClientes;
+    private IGestorClientes gestor; 
+    private ServicioCuentas servicioCuentas;
+    private IGestorCuentas  gestorCuentas;
     /**
      * Creates new form FrmMain
      */
     public FrmMain() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        gestor = new GestorClientesMem();
+        servicioClientes = new ServicioClientes(gestor);
+        gestorCuentas = new GestorCuentasMem();
+        servicioCuentas = new ServicioCuentas(gestorCuentas, servicioClientes);
     }
 
     /**
@@ -39,6 +51,9 @@ public class FrmMain extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         menuAdmin = new javax.swing.JMenu();
         menuClientes = new javax.swing.JMenuItem();
+        menuCuentas = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuCajeros = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,7 +80,30 @@ public class FrmMain extends javax.swing.JFrame {
         });
         menuAdmin.add(menuClientes);
 
+        menuCuentas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuCuentas.setText("Cuentas");
+        menuCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCuentasActionPerformed(evt);
+            }
+        });
+        menuAdmin.add(menuCuentas);
+
         menuBar.add(menuAdmin);
+
+        jMenu1.setText("Interactuar");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        menuCajeros.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuCajeros.setText("Cajero");
+        menuCajeros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCajerosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuCajeros);
+
+        menuBar.add(jMenu1);
 
         setJMenuBar(menuBar);
 
@@ -84,12 +122,22 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
-        IGestorClientes gestor = new GestorClientesMem();
-        ServicioClientes servicio=new ServicioClientes(gestor);
-        FrmClientes frm = new FrmClientes(servicio);
+        FrmClientes frm = new FrmClientes(servicioClientes);
         this.dtpMenu.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_menuClientesActionPerformed
+
+    private void menuCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCuentasActionPerformed
+        FrmCuentas frm = new FrmCuentas(servicioClientes);
+        this.dtpMenu.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuCuentasActionPerformed
+
+    private void menuCajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCajerosActionPerformed
+        FrmMovimientos frm = new FrmMovimientos(servicioCuentas);
+        this.dtpMenu.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuCajerosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,8 +166,11 @@ public class FrmMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dtpMenu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu menuAdmin;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem menuCajeros;
     private javax.swing.JMenuItem menuClientes;
+    private javax.swing.JMenuItem menuCuentas;
     // End of variables declaration//GEN-END:variables
 }
