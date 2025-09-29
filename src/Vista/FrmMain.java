@@ -8,7 +8,11 @@ import Vista.Clientes.FrmClientes;
 import Modelo.Clientes.GestorClientesMem;
 import Modelo.Clientes.IGestorClientes;
 import Modelo.Clientes.ServicioClientes;
+import Modelo.Cuentas.GestorCuentasMem;
+import Modelo.Cuentas.IGestorCuentas;
+import Modelo.Cuentas.ServicioCuentas;
 import Vista.Cuentas.FrmCuentas;
+import Vista.Cuentas.FrmMovimientos;
 import javax.swing.JFrame;
 
 /**
@@ -20,6 +24,8 @@ public class FrmMain extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMain.class.getName());
     private ServicioClientes servicioClientes;
     private IGestorClientes gestor; 
+    private ServicioCuentas servicioCuentas;
+    private IGestorCuentas  gestorCuentas;
     /**
      * Creates new form FrmMain
      */
@@ -28,6 +34,8 @@ public class FrmMain extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         gestor = new GestorClientesMem();
         servicioClientes = new ServicioClientes(gestor);
+        gestorCuentas = new GestorCuentasMem();
+        servicioCuentas = new ServicioCuentas(gestorCuentas, servicioClientes);
     }
 
     /**
@@ -126,7 +134,9 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCuentasActionPerformed
 
     private void menuCajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCajerosActionPerformed
-        // TODO add your handling code here:
+        FrmMovimientos frm = new FrmMovimientos(servicioCuentas);
+        this.dtpMenu.add(frm);
+        frm.setVisible(true);
     }//GEN-LAST:event_menuCajerosActionPerformed
 
     /**
