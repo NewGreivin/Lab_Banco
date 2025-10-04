@@ -1,10 +1,14 @@
 package Modelo.Cuentas;
 
+import Factory_Cuentas.CuentaColonesFactory;
+import Factory_Cuentas.CuentaDolaresFactory;
 import Modelo.Clientes.Cliente;
 import Modelo.Clientes.ServicioClientes;
 import java.util.List;
 
 public class ServicioCuentas {
+    private CuentaColonesFactory cuenta_colones_factory;
+    private CuentaDolaresFactory cuenta_dolares_factory;
     private IGestorCuentas gestor;
     private  ServicioClientes servicioClientes;
     private static final String PREFIJO_BANCO = "551";
@@ -12,6 +16,8 @@ public class ServicioCuentas {
     public ServicioCuentas(IGestorCuentas gestor, ServicioClientes servicioClientes) {
         this.gestor = gestor;
         this.servicioClientes = servicioClientes;
+        this.cuenta_colones_factory = new CuentaColonesFactory();
+        this.cuenta_dolares_factory = new CuentaDolaresFactory();
     }
 
     public String generarNumeroCuenta() {
@@ -24,9 +30,9 @@ public class ServicioCuentas {
         String numeroCuenta = generarNumeroCuenta();
         Cuenta cuenta;
         if (tipo.equalsIgnoreCase("Colones"))
-            cuenta = new CuentaColones(numeroCuenta, titular, saldoInicial);
+            cuenta = cuenta_colones_factory.crearCuenta(numeroCuenta, titular, saldoInicial);
         else if (tipo.equalsIgnoreCase("Dólares"))
-            cuenta = new CuentaDolares(numeroCuenta, titular, saldoInicial);
+            cuenta = cuenta_dolares_factory.crearCuenta(numeroCuenta, titular, saldoInicial);
         else
             throw new IllegalArgumentException("Tipo de cuenta inválido");
         gestor.guardar(cuenta);
