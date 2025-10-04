@@ -7,24 +7,27 @@ package Modelo.Clientes;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import Factory_Cliente.ClienteFactory;
 
 /**
  *
  * @author jprod
  */
 public class ServicioClientes {
+    private ClienteFactory cliente_factory;
     private final IGestorClientes gestor;
     private static final Pattern EMAIL = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
 
     public ServicioClientes(IGestorClientes gestor) {
         this.gestor = gestor;
+        this.cliente_factory = new ClienteFactory(); 
     }
     
     public void guardar(String id, String nombre, String correo, String telefono, boolean preferencia) {
         validarRequeridos(id, nombre, correo, telefono);
         if (gestor.existe(id)) throw new IllegalArgumentException("Ya existe un registro con id=" + id);
         if (!EMAIL.matcher(correo).matches()) throw new IllegalArgumentException("Formato de correo inválido");
-        gestor.guardar(new Cliente(id, nombre, correo, telefono,preferencia));
+        gestor.guardar(cliente_factory.crearCliente(id, nombre, correo, telefono, preferencia));
     }
     
     public void actualizar(String id, String correo, String telefono,boolean preferencia) {
