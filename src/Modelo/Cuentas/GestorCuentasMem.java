@@ -6,9 +6,17 @@ import java.util.List;
 
 public class GestorCuentasMem implements IGestorCuentas {
     private final HashMap<String, Cuenta> cuentas;
-
-    public GestorCuentasMem() {
+    private static GestorCuentasMem instancia;
+    
+    private GestorCuentasMem() {
         cuentas = new HashMap<>();
+    }
+
+    public static GestorCuentasMem getInstancia() {
+        if (instancia == null) {
+            instancia = new GestorCuentasMem();
+        }
+        return instancia;
     }
 
     @Override
