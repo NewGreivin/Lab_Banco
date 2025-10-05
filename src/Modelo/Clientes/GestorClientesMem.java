@@ -16,6 +16,7 @@ import java.util.Objects;
  */
 public class GestorClientesMem implements IGestorClientes {
     private final HashMap<String, Cliente> map;
+    private static GestorClientesMem instancia;
     private Cliente cliente;
     private final ArrayList<Cliente> historicoEliminados; 
     
@@ -24,12 +25,18 @@ public class GestorClientesMem implements IGestorClientes {
         return cliente;
     }
     
-    public GestorClientesMem() {
+    private GestorClientesMem() {
         map = new HashMap<>();
         cliente=null;
         historicoEliminados = new ArrayList<>(); 
     }
     
+    public static GestorClientesMem getInstancia() {
+        if (instancia == null) {
+            instancia = new GestorClientesMem();
+        }
+        return instancia;
+    }
     @Override
     public void guardar(Cliente cliente) {
         Objects.requireNonNull(cliente, "Cliente requerido");
