@@ -14,7 +14,6 @@ import Modelo.Cuentas.ServicioCuentas;
 import Vista.Cuentas.FrmCuentas;
 import Vista.Cuentas.FrmMovimientos;
 import javax.swing.JFrame;
-
 /**
  *
  * @author jprod
@@ -32,9 +31,9 @@ public class FrmMain extends javax.swing.JFrame {
     public FrmMain() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        gestor = new GestorClientesMem();
+        gestor =  GestorClientesMem.getInstancia();
         servicioClientes = new ServicioClientes(gestor);
-        gestorCuentas = new GestorCuentasMem();
+        gestorCuentas = GestorCuentasMem.getInstancia();;
         servicioCuentas = new ServicioCuentas(gestorCuentas, servicioClientes);
     }
 
