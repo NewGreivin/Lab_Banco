@@ -1,7 +1,7 @@
 package Modelo.Cuentas;
 
-import Factory_Cuentas.CuentaColonesFactory;
-import Factory_Cuentas.CuentaDolaresFactory;
+import Factory.Cuenta.CuentaColonesFactory;
+import Factory.Cuenta.CuentaDolaresFactory;
 import Modelo.Clientes.Cliente;
 import Modelo.Clientes.ServicioClientes;
 import java.util.List;

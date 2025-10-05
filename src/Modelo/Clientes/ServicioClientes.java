@@ -7,7 +7,7 @@ package Modelo.Clientes;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
-import Factory_Cliente.ClienteFactory;
+import Factory.Cliente.ClienteFactory;
 
 /**
  *
