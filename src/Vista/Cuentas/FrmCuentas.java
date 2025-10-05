@@ -3,14 +3,11 @@ package Vista.Cuentas;
 
 import Controlador.ControladorCuentas;
 import Modelo.Clientes.Cliente;
-import Modelo.Clientes.GestorClientesMem;
-import Modelo.Clientes.IGestorClientes;
 import Modelo.Clientes.ServicioClientes;
 import Modelo.Cuentas.Cuenta;
 import Modelo.Cuentas.GestorCuentasMem;
 import Modelo.Cuentas.IGestorCuentas;
 import Modelo.Cuentas.ServicioCuentas;
-import Vista.Cuentas.IVistaCuentas;
 import Vista.UtilGui;
 
 public class FrmCuentas extends javax.swing.JInternalFrame implements IVistaCuentas  {
@@ -22,7 +19,7 @@ public class FrmCuentas extends javax.swing.JInternalFrame implements IVistaCuen
         super("Cuentas", true, true, true, true);
         initComponents();
         this.servicioClientes = servicioClientes1;
-        IGestorCuentas gestorCuentas = new GestorCuentasMem();
+        IGestorCuentas gestorCuentas = GestorCuentasMem.getInstancia();
         ServicioCuentas servicioCuentas = new ServicioCuentas(gestorCuentas, servicioClientes);
         controlador = new ControladorCuentas(servicioCuentas, this);
         cargarCombos(servicioClientes);
