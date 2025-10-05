@@ -9,6 +9,7 @@ import Modelo.Cuentas.GestorCuentasMem;
 import Modelo.Cuentas.IGestorCuentas;
 import Modelo.Cuentas.ServicioCuentas;
 import Vista.UtilGui;
+import java.awt.event.ItemEvent;
 
 public class FrmCuentas extends javax.swing.JInternalFrame implements IVistaCuentas  {
 
@@ -62,7 +63,7 @@ public class FrmCuentas extends javax.swing.JInternalFrame implements IVistaCuen
         ScrollInformacion = new javax.swing.JScrollPane();
         txtInformacion = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnBuscar.setText("Buscar Cuenta");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -156,9 +157,9 @@ public class FrmCuentas extends javax.swing.JInternalFrame implements IVistaCuen
         lblMostrarNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblMostrarNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        cmbId.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbIdMouseClicked(evt);
+        cmbId.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbIdItemStateChanged(evt);
             }
         });
 
@@ -289,11 +290,13 @@ public class FrmCuentas extends javax.swing.JInternalFrame implements IVistaCuen
         limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void cmbIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbIdMouseClicked
+    private void cmbIdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbIdItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
         String id = (String) cmbId.getSelectedItem();
         Cliente cliente = servicioClientes.buscar(id);
         lblMostrarNombre.setText(cliente != null ? cliente.getNombre() : "");
-    }//GEN-LAST:event_cmbIdMouseClicked
+        }
+    }//GEN-LAST:event_cmbIdItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollInformacion;
